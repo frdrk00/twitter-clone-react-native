@@ -1,4 +1,4 @@
-import { API_URL, authToken } from "./config"
+import { API_URL, authToken } from './config'
 
 export const listTweets = async () => {
   const res = await fetch(`${API_URL}/tweet`, {
@@ -18,7 +18,6 @@ export const listTweets = async () => {
   return await res.json()
 }
 
-
 export const getTweet = async (id: string) => {
   const res = await fetch(`${API_URL}/tweet/${id}`, {
     headers: {
@@ -32,6 +31,27 @@ export const getTweet = async (id: string) => {
 
   if (res.status !== 200) {
     throw new Error('Error fetching tweets')
+  }
+
+  return await res.json()
+}
+
+export const createTweet = async (data: { content: string }) => {
+  const res = await fetch(`${API_URL}/tweet`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer: ${authToken}`,
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (res.status === 401) {
+    throw new Error('Not authorized. Please sign in')
+  }
+
+  if (res.status !== 200) {
+    throw new Error('Error creating tweet')
   }
 
   return await res.json()
