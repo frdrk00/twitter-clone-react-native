@@ -12,9 +12,9 @@ import { authenticate } from '../../lib/api/auth'
 import { useAuth } from '../../context/AuthContext'
 
 const Authenticate = () => {
-  const [code, setCode] = useState('')
+  const [ code, setCode ] = useState('')
   const { email } = useSearchParams()
-  const {setAuthToken} = useAuth()
+  const { updateAuthToken } = useAuth()
 
   const onConfirm = async () => {
     if (typeof email !== 'string') {
@@ -22,7 +22,7 @@ const Authenticate = () => {
     }
     try {
       const res = await authenticate({ email, emailToken: code })
-      setAuthToken(res.authToken)
+      await updateAuthToken(res.authToken)
     } catch (error) {
       Alert.alert('Error', "Email code doesn't match")
     }
