@@ -3,10 +3,11 @@ import { useSearchParams } from 'expo-router'
 import Tweet from '../../../../../components/Tweet'
 import tweets from '../../../../../assets/data/tweets'
 import { useQuery } from '@tanstack/react-query'
-import { getTweet } from '../../../../../lib/api/tweets'
+import { useTweetsApi } from '../../../../../lib/api/tweets';
 
 const Page = () => {
   const { id } = useSearchParams()
+  const { getTweet } = useTweetsApi();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['tweet', id],

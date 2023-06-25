@@ -1,19 +1,27 @@
-import { StyleSheet, View, FlatList, Pressable, ActivityIndicator, Text } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Pressable,
+  ActivityIndicator,
+  Text,
+} from 'react-native'
 import Tweet from '../../../../components/Tweet'
 import { Entypo } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { listTweets } from '../../../../lib/api/tweets'
-import {useQuery} from  '@tanstack/react-query'
+import { useTweetsApi } from '../../../../lib/api/tweets'
+import { useQuery } from '@tanstack/react-query'
 
 export default function FeedScreen() {
-  const {data, isLoading, error} = useQuery({
+  const { listTweets } = useTweetsApi()
+
+  const { data, isLoading, error } = useQuery({
     queryKey: ['tweets'],
     queryFn: listTweets,
   })
 
-
-/*   const [tweets, setTweets] = useState([])
+  /*   const [tweets, setTweets] = useState([])
 
   useEffect(() => {
     const fetchTweets = async () => {
@@ -23,7 +31,7 @@ export default function FeedScreen() {
 
     fetchTweets()
   }, []) */
-  
+
   if (isLoading) {
     return <ActivityIndicator />
   }
@@ -34,10 +42,7 @@ export default function FeedScreen() {
 
   return (
     <View style={styles.page}>
-      <FlatList
-        data={data}
-        renderItem={({ item }) => <Tweet tweet={item} />}
-      />
+      <FlatList data={data} renderItem={({ item }) => <Tweet tweet={item} />} />
 
       <Link href="/new-tweet" asChild>
         <Entypo

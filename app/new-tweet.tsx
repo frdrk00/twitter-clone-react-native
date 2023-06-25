@@ -11,7 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { createTweet } from '../lib/api/tweets'
+import { useTweetsApi } from '../lib/api/tweets';
 
 const user = {
   id: 'u1',
@@ -25,6 +25,7 @@ const NewTweet = () => {
   const [text, setText] = useState('')
   const router = useRouter()
   const queryClient = useQueryClient()
+  const { createTweet } = useTweetsApi();
 
   const { mutateAsync, isLoading, isError, error } = useMutation({
     mutationFn: createTweet,
