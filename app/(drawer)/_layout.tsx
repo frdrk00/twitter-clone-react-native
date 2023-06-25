@@ -4,7 +4,8 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer'
-import { Text } from 'react-native'
+import { Text, ActivityIndicator } from 'react-native'
+import { useAuth } from '../../context/AuthContext'
 
 const DrawerNavigator = createDrawerNavigator().Navigator
 
@@ -17,7 +18,7 @@ export const unstable_settings = {
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-       <Text style={{ alignSelf: 'center', fontSize: 20 }}>Frederik</Text>
+      <Text style={{ alignSelf: 'center', fontSize: 20 }}>Frederik</Text>
 
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
@@ -25,6 +26,12 @@ function CustomDrawerContent(props) {
 }
 
 export default function DrawerLayout() {
+  const { authToken } = useAuth()
+
+  if (!authToken) {
+    return <ActivityIndicator />
+  }
+
   return (
     <Drawer drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
