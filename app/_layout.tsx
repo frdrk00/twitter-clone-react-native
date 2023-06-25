@@ -53,7 +53,6 @@ function RootLayoutNav() {
             name="new-tweet"
             options={{ title: 'New Tweet', headerShown: false }}
           />
-          <Stack.Screen name="tweet/[id]" options={{ title: 'Tweet' }} />
         </Stack>
       </ThemeProvider>
     </>
