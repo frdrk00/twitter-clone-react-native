@@ -26,13 +26,12 @@ const NewTweet = () => {
   const router = useRouter()
   const queryClient = useQueryClient()
 
-  const { mutateAsync, isLoading, isError, error, isSuccess } = useMutation({
+  const { mutateAsync, isLoading, isError, error } = useMutation({
     mutationFn: createTweet,
     onSuccess: (data) => {
-      queryClient.setQueriesData(['tweets'], (existingTweets) => [
-        data,
-        ...existingTweets,
-      ])
+      queryClient.setQueriesData(['tweets'], (existingTweets) => {
+        return [data, ...existingTweets]
+      })
     },
   })
 
