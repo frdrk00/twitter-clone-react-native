@@ -1,1 +1,1 @@
-export const API_URL = 'https://fc8d-62-197-212-7.ngrok-free.app'
+export const API_URL = 'http://ec2-3-83-189-10.compute-1.amazonaws.com:3000'

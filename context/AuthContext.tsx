@@ -37,8 +37,13 @@ const AuthContextProvider = ({ children }: PropsWithChildren) => {
     setAuthToken(newToken)
   }
 
+  const removeAuthToken = async (newToken: string) => {
+    await SecureStore.setItemAsync('authToken', newToken)
+    setAuthToken(null)
+  }
+
   return (
-    <AuthContext.Provider value={{ authToken, setAuthToken, updateAuthToken }}>
+    <AuthContext.Provider value={{ authToken, setAuthToken, updateAuthToken, removeAuthToken }}>
       {children}
     </AuthContext.Provider>
   )
